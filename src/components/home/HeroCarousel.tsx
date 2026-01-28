@@ -2,64 +2,114 @@ import { useState, useEffect, useCallback } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
 
-// ============================================
-// CAROUSEL IMAGES - EASY TO EDIT
-// To change photos: Simply update the import paths and carouselImages array
-// To reorder: Change the order in the array below
-// ============================================
-import carousel1 from "@/assets/carousel/carousel-1.jpg";
-import carousel2 from "@/assets/carousel/carousel-2.jpg";
-import carousel3 from "@/assets/carousel/carousel-3.jpg";
-import carousel4 from "@/assets/carousel/carousel-4.jpg";
-import carousel5 from "@/assets/carousel/carousel-5.jpg";
-import carousel6 from "@/assets/carousel/carousel-6.jpg";
-import carousel7 from "@/assets/carousel/carousel-7.jpg";
-import carousel8 from "@/assets/carousel/carousel-8.jpg";
-
-// Edit this array to change carousel photos and their order
-const carouselImages = [
-  { src: carousel1, alt: "Church family fellowship" },
-  { src: carousel2, alt: "Community serving together" },
-  { src: carousel3, alt: "Youth ministry" },
-  { src: carousel4, alt: "Church members embracing" },
-  { src: carousel5, alt: "Fellowship dinner" },
-  { src: carousel6, alt: "Family gathering" },
-  { src: carousel7, alt: "Prayer service" },
-  { src: carousel8, alt: "Worship service" },
-];
-// ============================================
+interface CarouselImage {
+  id: string;
+  image_url: string;
+  alt_text: string;
+  display_order: number;
+  is_active: boolean;
+}
 
 const HeroCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [images, setImages] = useState<CarouselImage[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Fetch images from database
+  useEffect(() => {
+    const fetchImages = async () => {
+      const { data, error } = await supabase
+        .from("carousel_images")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order", { ascending: true });
+
+      if (!error && data) {
+        setImages(data);
+      }
+      setIsLoading(false);
+    };
+
+    fetchImages();
+
+    // Subscribe to realtime changes
+    const channel = supabase
+      .channel("carousel_changes")
+      .on(
+        "postgres_changes",
+        {
+          event: "*",
+          schema: "public",
+          table: "carousel_images",
+        },
+        () => {
+          fetchImages();
+        }
+      )
+      .subscribe();
+
+    return () => {
+      supabase.removeChannel(channel);
+    };
+  }, []);
 
   const nextSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % carouselImages.length);
-  }, []);
+    if (images.length === 0) return;
+    setCurrentIndex((prev) => (prev + 1) % images.length);
+  }, [images.length]);
 
   const prevSlide = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + carouselImages.length) % carouselImages.length);
-  }, []);
+    if (images.length === 0) return;
+    setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+  }, [images.length]);
 
   // Auto-advance carousel
   useEffect(() => {
+    if (images.length === 0) return;
     const timer = setInterval(nextSlide, 5000);
     return () => clearInterval(timer);
-  }, [nextSlide]);
+  }, [nextSlide, images.length]);
+
+  // Reset currentIndex if it's out of bounds
+  useEffect(() => {
+    if (images.length > 0 && currentIndex >= images.length) {
+      setCurrentIndex(0);
+    }
+  }, [images.length, currentIndex]);
+
+  if (isLoading) {
+    return (
+      <section className="relative h-[calc(100vh-80px)] min-h-[450px] max-h-[700px] overflow-hidden bg-muted flex items-center justify-center">
+        <p className="text-muted-foreground">Loading...</p>
+      </section>
+    );
+  }
+
+  if (images.length === 0) {
+    return (
+      <section className="relative h-[calc(100vh-80px)] min-h-[450px] max-h-[700px] overflow-hidden bg-muted flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground mb-4">No carousel images available</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="relative h-[calc(100vh-80px)] min-h-[450px] max-h-[700px] overflow-hidden">
       {/* Background Images with zoom effect */}
-      {carouselImages.map((image, index) => (
+      {images.map((image, index) => (
         <div
-          key={index}
+          key={image.id}
           className={`absolute inset-0 transition-opacity duration-1000 ${
             index === currentIndex ? "opacity-100" : "opacity-0"
           }`}
         >
           <img
-            src={image.src}
-            alt={image.alt}
+            src={image.image_url}
+            alt={image.alt_text}
             className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
               index === currentIndex ? "scale-110" : "scale-100"
             }`}
@@ -117,9 +167,9 @@ const HeroCarousel = () => {
 
       {/* Dots Indicator */}
       <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-2">
-        {carouselImages.map((_, index) => (
+        {images.map((image, index) => (
           <button
-            key={index}
+            key={image.id}
             onClick={() => setCurrentIndex(index)}
             className={`w-2 h-2 rounded-full transition-all ${
               index === currentIndex
