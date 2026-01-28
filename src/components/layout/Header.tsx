@@ -27,10 +27,10 @@ const Header = () => {
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="Shiloh Old Site Baptist Church" className="h-14 w-14 object-contain" />
           <div className="hidden sm:block">
-              <h1 className="font-hero text-xl uppercase tracking-wide text-foreground leading-none">
+              <h1 className="font-display text-lg font-semibold text-foreground leading-tight">
                 Shiloh Old Site
               </h1>
-              <p className="font-heading text-sm uppercase tracking-wider text-muted-foreground">Baptist Church</p>
+              <p className="text-xs text-muted-foreground">Baptist Church</p>
             </div>
           </Link>
 
@@ -40,7 +40,7 @@ const Header = () => {
               <Link
                 key={link.path}
                 to={link.path}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                className={`px-4 py-2 rounded-md font-heading text-base uppercase tracking-wide transition-colors ${
                   isActive(link.path)
                     ? "text-primary bg-primary/10"
                     : "text-foreground hover:text-primary hover:bg-primary/5"
@@ -97,7 +97,7 @@ const Header = () => {
                   key={link.path}
                   to={link.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`px-4 py-3 rounded-md text-sm font-medium transition-colors ${
+                  className={`px-4 py-3 rounded-md font-heading text-base uppercase tracking-wide transition-colors ${
                     isActive(link.path)
                       ? "text-primary bg-primary/10"
                       : "text-foreground hover:text-primary hover:bg-primary/5"
