@@ -71,6 +71,17 @@ const CarouselManager = () => {
     setIsUploading(true);
 
     try {
+      // Check if user is authenticated
+      const { data: { session } } = await supabase.auth.getSession();
+      if (!session) {
+        toast({
+          title: "Not authenticated",
+          description: "Please sign in to upload images",
+          variant: "destructive",
+        });
+        return;
+      }
+
       const fileExt = file.name.split(".").pop();
       const fileName = `carousel-${Date.now()}.${fileExt}`;
       const filePath = `carousel/${fileName}`;
