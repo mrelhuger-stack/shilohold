@@ -49,7 +49,7 @@ const HeroCarousel = () => {
 
   return (
     <section className="relative h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
-      {/* Background Images */}
+      {/* Background Images with zoom effect */}
       {carouselImages.map((image, index) => (
         <div
           key={index}
@@ -60,7 +60,9 @@ const HeroCarousel = () => {
           <img
             src={image.src}
             alt={image.alt}
-            className="w-full h-full object-cover"
+            className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
+              index === currentIndex ? "scale-110" : "scale-100"
+            }`}
           />
         </div>
       ))}
@@ -68,24 +70,24 @@ const HeroCarousel = () => {
       {/* Overlay - positioned at bottom to not block images */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
 
-      {/* Content - positioned at bottom */}
+      {/* Content - positioned at bottom with staggered animations */}
       <div className="absolute inset-0 flex items-end">
         <div className="container mx-auto px-4 pb-16 md:pb-20">
-          <div className="max-w-2xl text-white animate-fade-in">
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-shadow-lg">
+          <div className="max-w-2xl text-white">
+            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold mb-4 text-shadow-lg opacity-0 animate-fade-in-up">
               Shiloh Old Site Baptist Church
             </h1>
-            <p className="text-xl md:text-2xl text-white/90 mb-2 text-shadow">
+            <p className="text-xl md:text-2xl text-white/90 mb-2 text-shadow opacity-0 animate-fade-in-up animation-delay-200">
               A Place for Grace and Growth
             </p>
-            <p className="text-base md:text-lg text-white/80 mb-8 text-shadow">
+            <p className="text-base md:text-lg text-white/80 mb-8 text-shadow opacity-0 animate-fade-in-up animation-delay-300">
               Working Together Building the Body of Christ One Disciple at a Time
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold">
+            <div className="flex flex-wrap gap-4 opacity-0 animate-fade-in-up animation-delay-500">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold shimmer-bg hover:animate-shimmer transition-all duration-300 hover:scale-105">
                 <Link to="/visit">Join Us This Sunday</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/50 text-white hover:bg-white/10 backdrop-blur-sm">
+              <Button asChild variant="outline" size="lg" className="border-white/50 text-white hover:bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-105 hover:border-white">
                 <Link to="/about">Learn More</Link>
               </Button>
             </div>

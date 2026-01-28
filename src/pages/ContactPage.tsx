@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 const ContactPage = () => {
   const { toast } = useToast();
@@ -16,6 +17,9 @@ const ContactPage = () => {
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  const contactAnimation = useScrollAnimation();
+  const mapAnimation = useScrollAnimation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -43,23 +47,26 @@ const ContactPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-28 bg-secondary">
+      <section className="relative py-20 md:py-28 bg-secondary overflow-hidden">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-secondary-foreground mb-4">
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-secondary-foreground mb-4 opacity-0 animate-fade-in-down">
             Contact Us
           </h1>
-          <p className="text-secondary-foreground/80 text-lg max-w-2xl mx-auto">
+          <p className="text-secondary-foreground/80 text-lg max-w-2xl mx-auto opacity-0 animate-fade-in-up animation-delay-200">
             Have questions? We'd love to hear from you. Reach out and let's connect!
           </p>
         </div>
       </section>
 
       {/* Contact Info & Form */}
-      <section className="py-16 md:py-24 bg-background">
+      <section 
+        ref={contactAnimation.ref as React.RefObject<HTMLElement>} 
+        className="py-16 md:py-24 bg-background overflow-hidden"
+      >
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
             {/* Contact Information */}
-            <div className="space-y-8">
+            <div className={`space-y-8 ${contactAnimation.isVisible ? "opacity-100 animate-slide-in-left" : "opacity-0"}`}>
               <div>
                 <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-6">
                   Get in Touch
@@ -71,9 +78,9 @@ const ContactPage = () => {
               </div>
 
               <div className="space-y-6">
-                <Card className="border-border">
+                <Card className="border-border hover-lift">
                   <CardContent className="p-6 flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 icon-bounce">
                       <MapPin className="h-6 w-6 text-primary" />
                     </div>
                     <div>
@@ -86,9 +93,9 @@ const ContactPage = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-border">
+                <Card className="border-border hover-lift">
                   <CardContent className="p-6 flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 icon-bounce">
                       <Phone className="h-6 w-6 text-primary" />
                     </div>
                     <div>
@@ -98,9 +105,9 @@ const ContactPage = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-border">
+                <Card className="border-border hover-lift">
                   <CardContent className="p-6 flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 icon-bounce">
                       <Mail className="h-6 w-6 text-primary" />
                     </div>
                     <div>
@@ -110,9 +117,9 @@ const ContactPage = () => {
                   </CardContent>
                 </Card>
 
-                <Card className="border-border">
+                <Card className="border-border hover-lift">
                   <CardContent className="p-6 flex items-start gap-4">
-                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                    <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 icon-bounce">
                       <Clock className="h-6 w-6 text-primary" />
                     </div>
                     <div>
@@ -134,7 +141,7 @@ const ContactPage = () => {
                     href="https://www.facebook.com/shiloh.workingtogether.1855"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                    className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
                     aria-label="Facebook"
                   >
                     <Facebook className="h-5 w-5" />
@@ -143,7 +150,7 @@ const ContactPage = () => {
                     href="https://www.youtube.com/@shiloholdsitebaptistchurch3089"
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                    className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-primary-foreground transition-all duration-300 hover:scale-110"
                     aria-label="YouTube"
                   >
                     <Youtube className="h-5 w-5" />
@@ -153,8 +160,8 @@ const ContactPage = () => {
             </div>
 
             {/* Contact Form */}
-            <div>
-              <Card className="border-border">
+            <div className={`${contactAnimation.isVisible ? "opacity-100 animate-slide-in-right" : "opacity-0"}`}>
+              <Card className="border-border hover-lift">
                 <CardContent className="p-6 md:p-8">
                   <h2 className="font-display text-2xl font-bold text-foreground mb-6">
                     Send Us a Message
@@ -170,7 +177,7 @@ const ContactPage = () => {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="border-border"
+                        className="border-border transition-all duration-300 focus:scale-[1.02]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -183,7 +190,7 @@ const ContactPage = () => {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="border-border"
+                        className="border-border transition-all duration-300 focus:scale-[1.02]"
                       />
                     </div>
                     <div className="space-y-2">
@@ -196,10 +203,14 @@ const ContactPage = () => {
                         value={formData.message}
                         onChange={handleChange}
                         required
-                        className="border-border resize-none"
+                        className="border-border resize-none transition-all duration-300 focus:scale-[1.02]"
                       />
                     </div>
-                    <Button type="submit" className="w-full" disabled={isSubmitting}>
+                    <Button 
+                      type="submit" 
+                      className="w-full transition-all duration-300 hover:scale-105 hover:shadow-lg" 
+                      disabled={isSubmitting}
+                    >
                       {isSubmitting ? (
                         "Sending..."
                       ) : (
@@ -218,9 +229,12 @@ const ContactPage = () => {
       </section>
 
       {/* Map */}
-      <section className="py-16 md:py-24 bg-muted">
+      <section 
+        ref={mapAnimation.ref as React.RefObject<HTMLElement>} 
+        className="py-16 md:py-24 bg-muted overflow-hidden"
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 ${mapAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"}`}>
             <p className="text-primary font-medium mb-2">Find Us</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
               Our Location
@@ -228,7 +242,9 @@ const ContactPage = () => {
             <div className="section-divider" />
           </div>
 
-          <div className="max-w-4xl mx-auto h-[400px] rounded-xl overflow-hidden shadow-lg border border-border">
+          <div className={`max-w-4xl mx-auto h-[400px] rounded-xl overflow-hidden shadow-lg border border-border ${
+            mapAnimation.isVisible ? "opacity-100 animate-scale-in" : "opacity-0"
+          }`}>
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3115.123!2d-77.4183!3d38.4828!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89b6e8a5b5b5b5b5%3A0x1234567890!2s1855+Garrisonville+Rd%2C+Stafford%2C+VA+22556!5e0!3m2!1sen!2sus!4v1234567890"
               width="100%"
