@@ -5,14 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, GripVertical, Plus, Image as ImageIcon } from "lucide-react";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Trash2, GripVertical, Plus, Image as ImageIcon, Move } from "lucide-react";
+import ImagePositionEditor from "./ImagePositionEditor";
 
 interface CarouselImage {
   id: string;
@@ -23,21 +17,12 @@ interface CarouselImage {
   image_position: string;
 }
 
-const POSITION_OPTIONS = [
-  { value: "top", label: "Top (show heads)" },
-  { value: "center", label: "Center" },
-  { value: "bottom", label: "Bottom" },
-  { value: "left top", label: "Left Top" },
-  { value: "right top", label: "Right Top" },
-  { value: "left center", label: "Left Center" },
-  { value: "right center", label: "Right Center" },
-];
-
 const CarouselManager = () => {
   const [images, setImages] = useState<CarouselImage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isUploading, setIsUploading] = useState(false);
   const [newAltText, setNewAltText] = useState("");
+  const [editingImage, setEditingImage] = useState<CarouselImage | null>(null);
   const { toast } = useToast();
 
   const fetchImages = async () => {
@@ -364,21 +349,18 @@ const CarouselManager = () => {
                     <p className="font-medium">{image.alt_text}</p>
                     <div className="flex items-center gap-2">
                       <Label className="text-xs text-muted-foreground whitespace-nowrap">Position:</Label>
-                      <Select
-                        value={image.image_position}
-                        onValueChange={(value) => handlePositionChange(image.id, value)}
+                      <span className="text-xs font-mono text-muted-foreground">
+                        {image.image_position}
+                      </span>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        className="h-7 text-xs"
+                        onClick={() => setEditingImage(image)}
                       >
-                        <SelectTrigger className="h-8 w-36 text-xs">
-                          <SelectValue />
-                        </SelectTrigger>
-                        <SelectContent className="bg-background border">
-                          {POSITION_OPTIONS.map((option) => (
-                            <SelectItem key={option.value} value={option.value}>
-                              {option.label}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
+                        <Move className="h-3 w-3 mr-1" />
+                        Adjust
+                      </Button>
                     </div>
                   </div>
                   <div className="flex items-center gap-2">
@@ -403,6 +385,20 @@ const CarouselManager = () => {
           )}
         </CardContent>
       </Card>
+
+      {/* Image Position Editor Modal */}
+      {editingImage && (
+        <ImagePositionEditor
+          imageUrl={editingImage.image_url}
+          altText={editingImage.alt_text}
+          currentPosition={editingImage.image_position}
+          onSave={(position) => {
+            handlePositionChange(editingImage.id, position);
+            setEditingImage(null);
+          }}
+          onCancel={() => setEditingImage(null)}
+        />
+      )}
     </div>
   );
 };
