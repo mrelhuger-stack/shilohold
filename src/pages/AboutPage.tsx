@@ -21,7 +21,7 @@ const leadershipTeam = [
     bio: "Pastor George Patterson has faithfully led Shiloh Old Site Baptist Church for many years, guiding the congregation with wisdom, compassion, and a deep commitment to God's Word.",
   },
   {
-    name: "First Lady Patterson",
+    name: "First Lady Lashon Patterson",
     role: "First Lady",
     image: firstLadyImage,
     bio: "First Lady Patterson serves alongside Pastor Patterson, supporting the church's ministries and nurturing the spiritual growth of our church family.",
