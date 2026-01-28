@@ -16,8 +16,8 @@ export default {
       fontFamily: {
         sans: ["Open Sans", "system-ui", "sans-serif"],
         display: ["Playfair Display", "Georgia", "serif"],
-        hero: ["Bebas Neue", "Impact", "sans-serif"],
-        heading: ["Oswald", "Arial Narrow", "sans-serif"],
+        hero: ["Anton", "Impact", "sans-serif"],
+        heading: ["Teko", "Arial Narrow", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
