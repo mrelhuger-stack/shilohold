@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/contexts/AuthContext";
 import Index from "./pages/Index";
 import AboutPage from "./pages/AboutPage";
+import StaffPage from "./pages/StaffPage";
 import VisitPage from "./pages/VisitPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage";
 import SermonsPage from "./pages/SermonsPage";
@@ -26,6 +27,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<AboutPage />} />
+            <Route path="/staff" element={<StaffPage />} />
             <Route path="/visit" element={<VisitPage />} />
             <Route path="/announcements" element={<AnnouncementsPage />} />
             <Route path="/sermons" element={<SermonsPage />} />
