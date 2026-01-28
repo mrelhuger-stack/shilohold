@@ -111,7 +111,7 @@ const HeroCarousel = () => {
           <img
             src={image.image_url}
             alt={image.alt_text}
-            className={`w-full h-full object-cover transition-transform duration-[10000ms] ease-out ${
+            className={`w-full h-full object-contain md:object-cover transition-transform duration-[10000ms] ease-out ${
               index === currentIndex ? "scale-110" : "scale-100"
             }`}
             style={{ objectPosition: image.image_position || "top" }}
