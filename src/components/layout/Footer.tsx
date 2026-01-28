@@ -30,8 +30,8 @@ const Footer = () => {
               <Link to="/visit" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
                 Plan Your Visit
               </Link>
-              <Link to="/events" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
-                Events
+              <Link to="/announcements" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+                Announcements
               </Link>
               <Link to="/sermons" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
                 Sermons
