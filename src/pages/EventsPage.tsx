@@ -4,6 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 
 // ============================================
 // EVENTS DATA - EASY TO EDIT
@@ -68,25 +69,31 @@ const categoryColors: Record<string, string> = {
 const EventsPage = () => {
   const recurringEvents = events.filter((e) => e.recurring);
   const upcomingEvents = events.filter((e) => !e.recurring);
+  
+  const recurringAnimation = useScrollAnimation();
+  const upcomingAnimation = useScrollAnimation();
 
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-28 bg-secondary">
+      <section className="relative py-20 md:py-28 bg-secondary overflow-hidden">
         <div className="container mx-auto px-4 text-center">
-          <h1 className="font-display text-4xl md:text-5xl font-bold text-secondary-foreground mb-4">
+          <h1 className="font-display text-4xl md:text-5xl font-bold text-secondary-foreground mb-4 opacity-0 animate-fade-in-down">
             Events
           </h1>
-          <p className="text-secondary-foreground/80 text-lg max-w-2xl mx-auto">
+          <p className="text-secondary-foreground/80 text-lg max-w-2xl mx-auto opacity-0 animate-fade-in-up animation-delay-200">
             Stay connected with what's happening at Shiloh. Join us for worship, fellowship, and community events.
           </p>
         </div>
       </section>
 
       {/* Recurring Events */}
-      <section className="py-16 md:py-24 bg-background">
+      <section 
+        ref={recurringAnimation.ref as React.RefObject<HTMLElement>} 
+        className="py-16 md:py-24 bg-background overflow-hidden"
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 ${recurringAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"}`}>
             <p className="text-primary font-medium mb-2">Weekly Gatherings</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
               Regular Events
@@ -96,7 +103,14 @@ const EventsPage = () => {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
             {recurringEvents.map((event, index) => (
-              <Card key={index} className="card-hover bg-card border-border">
+              <Card 
+                key={index} 
+                className={`card-hover hover-lift bg-card border-border ${
+                  recurringAnimation.isVisible 
+                    ? `opacity-100 animate-fade-in-up animation-delay-${(index + 1) * 100}` 
+                    : "opacity-0"
+                }`}
+              >
                 <CardContent className="p-6">
                   <div className="flex items-start justify-between mb-4">
                     <Badge variant="outline" className={categoryColors[event.category]}>
@@ -130,9 +144,12 @@ const EventsPage = () => {
       </section>
 
       {/* Upcoming Events */}
-      <section className="py-16 md:py-24 bg-muted">
+      <section 
+        ref={upcomingAnimation.ref as React.RefObject<HTMLElement>} 
+        className="py-16 md:py-24 bg-muted overflow-hidden"
+      >
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
+          <div className={`text-center mb-12 ${upcomingAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"}`}>
             <p className="text-primary font-medium mb-2">Mark Your Calendar</p>
             <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
               Upcoming Events
@@ -142,7 +159,14 @@ const EventsPage = () => {
 
           <div className="max-w-4xl mx-auto space-y-6">
             {upcomingEvents.map((event, index) => (
-              <Card key={index} className="card-hover bg-card border-border overflow-hidden">
+              <Card 
+                key={index} 
+                className={`card-hover hover-lift bg-card border-border overflow-hidden ${
+                  upcomingAnimation.isVisible 
+                    ? `opacity-100 animate-slide-in-left animation-delay-${(index + 1) * 200}` 
+                    : "opacity-0"
+                }`}
+              >
                 <CardContent className="p-0">
                   <div className="flex flex-col md:flex-row">
                     <div className="bg-primary p-6 md:p-8 flex flex-col items-center justify-center md:w-48 shrink-0">
@@ -174,8 +198,8 @@ const EventsPage = () => {
             ))}
           </div>
 
-          <div className="text-center mt-12">
-            <Button asChild variant="outline">
+          <div className={`text-center mt-12 ${upcomingAnimation.isVisible ? "opacity-100 animate-fade-in-up animation-delay-600" : "opacity-0"}`}>
+            <Button asChild variant="outline" className="transition-all duration-300 hover:scale-105">
               <Link to="/contact">
                 Contact us for more information
                 <ArrowRight className="ml-2 h-4 w-4" />

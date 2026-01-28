@@ -1,24 +1,46 @@
 import pastorImage from "@/assets/pastor-and-first-lady.png";
 
+import { useEffect, useRef, useState } from "react";
+
 const WelcomeSection = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <section className="py-16 md:py-24 bg-background">
+    <section ref={sectionRef} className="py-16 md:py-24 bg-background overflow-hidden">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Image */}
-          <div className="order-2 lg:order-1">
-            <div className="relative">
-              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl blur-xl" />
+          <div className={`order-2 lg:order-1 ${isVisible ? "opacity-100 animate-slide-in-left" : "opacity-0"}`}>
+            <div className="relative group">
+              <div className="absolute -inset-4 bg-gradient-to-br from-primary/20 to-secondary/20 rounded-2xl blur-xl transition-all duration-500 group-hover:blur-2xl group-hover:from-primary/30 group-hover:to-secondary/30" />
               <img
                 src={pastorImage}
                 alt="Pastor George Patterson and First Lady Patterson"
-                className="relative rounded-xl shadow-xl w-full max-w-md mx-auto object-cover aspect-[3/4]"
+                className="relative rounded-xl shadow-xl w-full max-w-md mx-auto object-cover aspect-[3/4] transition-transform duration-500 group-hover:scale-[1.02]"
               />
             </div>
           </div>
 
           {/* Content */}
-          <div className="order-1 lg:order-2 space-y-6">
+          <div className={`order-1 lg:order-2 space-y-6 ${isVisible ? "opacity-100 animate-slide-in-right" : "opacity-0"}`}>
             <div>
               <p className="text-primary font-medium mb-2">Welcome Home</p>
               <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
