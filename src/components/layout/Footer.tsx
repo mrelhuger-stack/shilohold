@@ -22,21 +22,21 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-teko text-2xl font-bold mb-4 text-primary uppercase tracking-wide">Quick Links</h3>
+            <h3 className="font-hero text-2xl mb-4 text-primary uppercase tracking-wider">Quick Links</h3>
             <nav className="space-y-2">
-              <Link to="/about" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
+              <Link to="/about" className="block font-impact text-lg font-semibold text-secondary-foreground/90 hover:text-primary transition-colors uppercase tracking-wide">
                 About Us
               </Link>
-              <Link to="/visit" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
+              <Link to="/visit" className="block font-impact text-lg font-semibold text-secondary-foreground/90 hover:text-primary transition-colors uppercase tracking-wide">
                 Plan Your Visit
               </Link>
-              <Link to="/announcements" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
+              <Link to="/announcements" className="block font-impact text-lg font-semibold text-secondary-foreground/90 hover:text-primary transition-colors uppercase tracking-wide">
                 Announcements
               </Link>
-              <Link to="/sermons" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
+              <Link to="/sermons" className="block font-impact text-lg font-semibold text-secondary-foreground/90 hover:text-primary transition-colors uppercase tracking-wide">
                 Sermons
               </Link>
-              <Link to="/contact" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
+              <Link to="/contact" className="block font-impact text-lg font-semibold text-secondary-foreground/90 hover:text-primary transition-colors uppercase tracking-wide">
                 Contact Us
               </Link>
             </nav>
@@ -44,17 +44,17 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-teko text-2xl font-bold mb-4 text-primary uppercase tracking-wide">Contact Us</h3>
+            <h3 className="font-hero text-2xl mb-4 text-primary uppercase tracking-wider">Contact Us</h3>
             <div className="space-y-3">
-              <div className="flex items-start gap-3 text-sm text-secondary-foreground/80">
+              <div className="flex items-start gap-3 font-impact text-base text-secondary-foreground/90">
                 <MapPin className="h-4 w-4 mt-1 shrink-0 text-primary" />
                 <span>1855 Garrisonville Road<br />Stafford, VA 22556</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-secondary-foreground/80">
+              <div className="flex items-center gap-3 font-impact text-base text-secondary-foreground/90">
                 <Phone className="h-4 w-4 shrink-0 text-primary" />
                 <span>(540) 659-4915</span>
               </div>
-              <div className="flex items-center gap-3 text-sm text-secondary-foreground/80">
+              <div className="flex items-center gap-3 font-impact text-base text-secondary-foreground/90">
                 <Mail className="h-4 w-4 shrink-0 text-primary" />
                 <span>info@shilohosbc.org</span>
               </div>
@@ -63,19 +63,19 @@ const Footer = () => {
 
           {/* Service Times */}
           <div>
-            <h3 className="font-teko text-2xl font-bold mb-4 text-primary uppercase tracking-wide">Service Times</h3>
+            <h3 className="font-hero text-2xl mb-4 text-primary uppercase tracking-wider">Service Times</h3>
             <div className="space-y-3">
-              <div className="flex items-start gap-3 text-sm text-secondary-foreground/80">
+              <div className="flex items-start gap-3 font-impact text-base text-secondary-foreground/90">
                 <Clock className="h-4 w-4 mt-1 shrink-0 text-primary" />
                 <div>
-                  <p className="font-medium">Sunday Worship</p>
+                  <p className="font-bold">Sunday Worship</p>
                   <p>10:00 AM</p>
                 </div>
               </div>
-              <div className="flex items-start gap-3 text-sm text-secondary-foreground/80">
+              <div className="flex items-start gap-3 font-impact text-base text-secondary-foreground/90">
                 <Clock className="h-4 w-4 mt-1 shrink-0 text-primary" />
                 <div>
-                  <p className="font-medium">Bible Study</p>
+                  <p className="font-bold">Bible Study</p>
                   <p>Wednesday 7:00 PM</p>
                 </div>
               </div>
