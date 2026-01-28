@@ -48,7 +48,7 @@ const HeroCarousel = () => {
   }, [nextSlide]);
 
   return (
-    <section className="relative h-[70vh] min-h-[500px] max-h-[800px] overflow-hidden">
+    <section className="relative h-[calc(100vh-80px)] min-h-[450px] max-h-[700px] overflow-hidden">
       {/* Background Images with zoom effect */}
       {carouselImages.map((image, index) => (
         <div
@@ -72,26 +72,26 @@ const HeroCarousel = () => {
 
       {/* Content - positioned at bottom with staggered animations */}
       <div className="absolute inset-0 flex items-end">
-        <div className="container mx-auto px-4 pb-16 md:pb-24">
+        <div className="container mx-auto px-4 pb-10 md:pb-16">
           <div className="max-w-4xl text-white">
             {/* Main headline with dramatic styling */}
-            <h1 className="font-hero text-6xl md:text-8xl lg:text-9xl uppercase leading-none mb-6 text-shadow-hero text-stroke opacity-0 animate-fade-in-up">
+            <h1 className="font-hero text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-none mb-4 text-shadow-hero text-stroke opacity-0 animate-fade-in-up">
               <span className="block text-white">Shiloh</span>
               <span className="block text-gradient-gold drop-shadow-2xl" style={{ WebkitTextStroke: '0' }}>Old Site Baptist</span>
               <span className="block text-white">Church</span>
             </h1>
             {/* Tagline with gold accent */}
-            <p className="font-heading text-2xl md:text-3xl lg:text-4xl uppercase tracking-[0.2em] text-primary mb-3 text-glow-gold opacity-0 animate-fade-in-up animation-delay-200">
+            <p className="font-heading text-xl sm:text-2xl md:text-3xl uppercase tracking-[0.15em] text-primary mb-2 text-glow-gold opacity-0 animate-fade-in-up animation-delay-200">
               A Place for Grace and Growth
             </p>
-            <p className="font-sans text-base md:text-lg text-white/80 mb-10 text-shadow opacity-0 animate-fade-in-up animation-delay-300 max-w-2xl">
+            <p className="font-sans text-sm md:text-base text-white/80 mb-6 text-shadow opacity-0 animate-fade-in-up animation-delay-300 max-w-xl">
               Working Together Building the Body of Christ One Disciple at a Time
             </p>
-            <div className="flex flex-wrap gap-4 opacity-0 animate-fade-in-up animation-delay-500">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-heading text-lg uppercase tracking-wider px-8 py-6 shimmer-bg hover:animate-shimmer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/30">
+            <div className="flex flex-wrap gap-3 opacity-0 animate-fade-in-up animation-delay-500">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-heading text-base uppercase tracking-wider px-6 py-5 shimmer-bg hover:animate-shimmer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/30">
                 <Link to="/visit">Join Us This Sunday</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-2 border-white/70 text-white hover:bg-white hover:text-foreground backdrop-blur-sm font-heading text-lg uppercase tracking-wider px-8 py-6 transition-all duration-300 hover:scale-105">
+              <Button asChild variant="outline" size="lg" className="border-2 border-white/70 text-white hover:bg-white hover:text-foreground backdrop-blur-sm font-heading text-base uppercase tracking-wider px-6 py-5 transition-all duration-300 hover:scale-105">
                 <Link to="/about">Learn More</Link>
               </Button>
             </div>
