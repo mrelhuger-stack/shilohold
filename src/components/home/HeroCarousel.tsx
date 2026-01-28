@@ -72,22 +72,26 @@ const HeroCarousel = () => {
 
       {/* Content - positioned at bottom with staggered animations */}
       <div className="absolute inset-0 flex items-end">
-        <div className="container mx-auto px-4 pb-16 md:pb-20">
-          <div className="max-w-3xl text-white">
-            <h1 className="font-hero text-5xl md:text-7xl lg:text-8xl uppercase tracking-wide mb-4 text-shadow-lg opacity-0 animate-fade-in-up">
-              Shiloh Old Site Baptist Church
+        <div className="container mx-auto px-4 pb-16 md:pb-24">
+          <div className="max-w-4xl text-white">
+            {/* Main headline with dramatic styling */}
+            <h1 className="font-hero text-6xl md:text-8xl lg:text-9xl uppercase leading-none mb-6 text-shadow-hero text-stroke opacity-0 animate-fade-in-up">
+              <span className="block text-white">Shiloh</span>
+              <span className="block text-gradient-gold drop-shadow-2xl" style={{ WebkitTextStroke: '0' }}>Old Site Baptist</span>
+              <span className="block text-white">Church</span>
             </h1>
-            <p className="font-heading text-xl md:text-2xl lg:text-3xl uppercase tracking-wider text-white/90 mb-2 text-shadow opacity-0 animate-fade-in-up animation-delay-200">
+            {/* Tagline with gold accent */}
+            <p className="font-heading text-2xl md:text-3xl lg:text-4xl uppercase tracking-[0.2em] text-primary mb-3 text-glow-gold opacity-0 animate-fade-in-up animation-delay-200">
               A Place for Grace and Growth
             </p>
-            <p className="font-sans text-base md:text-lg text-white/80 mb-8 text-shadow opacity-0 animate-fade-in-up animation-delay-300">
+            <p className="font-sans text-base md:text-lg text-white/80 mb-10 text-shadow opacity-0 animate-fade-in-up animation-delay-300 max-w-2xl">
               Working Together Building the Body of Christ One Disciple at a Time
             </p>
             <div className="flex flex-wrap gap-4 opacity-0 animate-fade-in-up animation-delay-500">
-              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-heading uppercase tracking-wider shimmer-bg hover:animate-shimmer transition-all duration-300 hover:scale-105">
+              <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-heading text-lg uppercase tracking-wider px-8 py-6 shimmer-bg hover:animate-shimmer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/30">
                 <Link to="/visit">Join Us This Sunday</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/50 text-white hover:bg-white/10 backdrop-blur-sm font-heading uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:border-white">
+              <Button asChild variant="outline" size="lg" className="border-2 border-white/70 text-white hover:bg-white hover:text-foreground backdrop-blur-sm font-heading text-lg uppercase tracking-wider px-8 py-6 transition-all duration-300 hover:scale-105">
                 <Link to="/about">Learn More</Link>
               </Button>
             </div>
