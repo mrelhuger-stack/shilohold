@@ -1,6 +1,7 @@
 import Layout from "@/components/layout/Layout";
 import { Heart, BookOpen, Users, Cross, Lightbulb, HandHeart } from "lucide-react";
-import pastorImage from "@/assets/pastor-and-first-lady.png";
+import pastorImage from "@/assets/pastor-patterson.png";
+import firstLadyImage from "@/assets/first-lady-patterson.png";
 
 const missionValues = [
   { icon: BookOpen, text: "Preach and teach the Gospel of Jesus Christ" },
@@ -21,7 +22,7 @@ const leadershipTeam = [
   {
     name: "First Lady Patterson",
     role: "First Lady",
-    image: pastorImage,
+    image: firstLadyImage,
     bio: "First Lady Patterson serves alongside Pastor Patterson, supporting the church's ministries and nurturing the spiritual growth of our church family.",
   },
 ];
@@ -119,11 +120,11 @@ const AboutPage = () => {
             <div className="grid md:grid-cols-2 gap-8">
               {leadershipTeam.map((leader, index) => (
                 <div key={index} className="bg-card rounded-xl border border-border overflow-hidden card-hover">
-                  <div className="aspect-[4/3] overflow-hidden">
+                  <div className="aspect-[3/4] overflow-hidden flex items-center justify-center bg-muted">
                     <img
                       src={leader.image}
                       alt={leader.name}
-                      className="w-full h-full object-cover object-top"
+                      className="w-full h-full object-cover object-center"
                     />
                   </div>
                   <div className="p-6">
