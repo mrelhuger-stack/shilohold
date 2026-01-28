@@ -91,7 +91,7 @@ const HeroCarousel = () => {
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground font-heading text-base uppercase tracking-wider px-6 py-5 shimmer-bg hover:animate-shimmer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-primary/30">
                 <Link to="/visit">Join Us This Sunday</Link>
               </Button>
-              <Button asChild variant="outline" size="lg" className="border-2 border-white/70 text-white hover:bg-white hover:text-foreground backdrop-blur-sm font-heading text-base uppercase tracking-wider px-6 py-5 transition-all duration-300 hover:scale-105">
+              <Button asChild variant="outline" size="lg" className="border-2 border-white bg-white/10 text-white hover:bg-white hover:text-foreground backdrop-blur-sm font-heading text-base uppercase tracking-wider px-6 py-5 transition-all duration-300 hover:scale-105">
                 <Link to="/about">Learn More</Link>
               </Button>
             </div>
