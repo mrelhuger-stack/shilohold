@@ -26,11 +26,11 @@ const Header = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-3">
             <img src={logo} alt="Shiloh Old Site Baptist Church" className="h-14 w-14 object-contain" />
-            <div className="hidden sm:block">
-              <h1 className="font-display text-lg font-semibold text-foreground leading-tight">
+          <div className="hidden sm:block">
+              <h1 className="font-hero text-xl uppercase tracking-wide text-foreground leading-none">
                 Shiloh Old Site
               </h1>
-              <p className="text-xs text-muted-foreground">Baptist Church</p>
+              <p className="font-heading text-sm uppercase tracking-wider text-muted-foreground">Baptist Church</p>
             </div>
           </Link>
 
