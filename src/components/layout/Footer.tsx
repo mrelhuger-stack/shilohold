@@ -22,21 +22,21 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-primary">Quick Links</h3>
+            <h3 className="font-teko text-2xl font-bold mb-4 text-primary uppercase tracking-wide">Quick Links</h3>
             <nav className="space-y-2">
-              <Link to="/about" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+              <Link to="/about" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
                 About Us
               </Link>
-              <Link to="/visit" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+              <Link to="/visit" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
                 Plan Your Visit
               </Link>
-              <Link to="/announcements" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+              <Link to="/announcements" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
                 Announcements
               </Link>
-              <Link to="/sermons" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+              <Link to="/sermons" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
                 Sermons
               </Link>
-              <Link to="/contact" className="block text-sm text-secondary-foreground/80 hover:text-primary transition-colors">
+              <Link to="/contact" className="block font-teko text-lg text-secondary-foreground/80 hover:text-primary transition-colors uppercase tracking-wide">
                 Contact Us
               </Link>
             </nav>
@@ -44,7 +44,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-primary">Contact Us</h3>
+            <h3 className="font-teko text-2xl font-bold mb-4 text-primary uppercase tracking-wide">Contact Us</h3>
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm text-secondary-foreground/80">
                 <MapPin className="h-4 w-4 mt-1 shrink-0 text-primary" />
@@ -63,7 +63,7 @@ const Footer = () => {
 
           {/* Service Times */}
           <div>
-            <h3 className="font-display text-lg font-semibold mb-4 text-primary">Service Times</h3>
+            <h3 className="font-teko text-2xl font-bold mb-4 text-primary uppercase tracking-wide">Service Times</h3>
             <div className="space-y-3">
               <div className="flex items-start gap-3 text-sm text-secondary-foreground/80">
                 <Clock className="h-4 w-4 mt-1 shrink-0 text-primary" />
