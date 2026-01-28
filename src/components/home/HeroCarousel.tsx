@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface CarouselImage {
   id: string;
@@ -17,6 +18,7 @@ const HeroCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [images, setImages] = useState<CarouselImage[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const isMobile = useIsMobile();
 
   // Fetch images from database
   useEffect(() => {
@@ -114,7 +116,7 @@ const HeroCarousel = () => {
             className={`w-full h-full object-contain md:object-cover transition-transform duration-[10000ms] ease-out ${
               index === currentIndex ? "scale-110" : "scale-100"
             }`}
-            style={{ objectPosition: image.image_position || "top" }}
+            style={{ objectPosition: isMobile ? "center top" : (image.image_position || "top") }}
           />
         </div>
       ))}
