@@ -5,7 +5,14 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { Trash2, Upload, GripVertical, Plus, Image as ImageIcon } from "lucide-react";
+import { Trash2, GripVertical, Plus, Image as ImageIcon } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CarouselImage {
   id: string;
@@ -13,7 +20,18 @@ interface CarouselImage {
   alt_text: string;
   display_order: number;
   is_active: boolean;
+  image_position: string;
 }
+
+const POSITION_OPTIONS = [
+  { value: "top", label: "Top (show heads)" },
+  { value: "center", label: "Center" },
+  { value: "bottom", label: "Bottom" },
+  { value: "left top", label: "Left Top" },
+  { value: "right top", label: "Right Top" },
+  { value: "left center", label: "Left Center" },
+  { value: "right center", label: "Right Center" },
+];
 
 const CarouselManager = () => {
   const [images, setImages] = useState<CarouselImage[]>([]);
@@ -215,6 +233,29 @@ const CarouselManager = () => {
     }
   };
 
+  const handlePositionChange = async (id: string, position: string) => {
+    try {
+      const { error } = await supabase
+        .from("carousel_images")
+        .update({ image_position: position })
+        .eq("id", id);
+
+      if (error) throw error;
+
+      fetchImages();
+      toast({
+        title: "Success",
+        description: "Image position updated",
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to update position",
+        variant: "destructive",
+      });
+    }
+  };
+
   if (isLoading) {
     return (
       <Card>
@@ -317,12 +358,28 @@ const CarouselManager = () => {
                     src={image.image_url}
                     alt={image.alt_text}
                     className="h-20 w-32 object-cover rounded"
+                    style={{ objectPosition: image.image_position }}
                   />
-                  <div className="flex-1">
+                  <div className="flex-1 space-y-2">
                     <p className="font-medium">{image.alt_text}</p>
-                    <p className="text-sm text-muted-foreground">
-                      Order: {image.display_order + 1}
-                    </p>
+                    <div className="flex items-center gap-2">
+                      <Label className="text-xs text-muted-foreground whitespace-nowrap">Position:</Label>
+                      <Select
+                        value={image.image_position}
+                        onValueChange={(value) => handlePositionChange(image.id, value)}
+                      >
+                        <SelectTrigger className="h-8 w-36 text-xs">
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent className="bg-background border">
+                          {POSITION_OPTIONS.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
                   </div>
                   <div className="flex items-center gap-2">
                     <Button
