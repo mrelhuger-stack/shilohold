@@ -18,6 +18,7 @@ export default {
         display: ["Playfair Display", "Georgia", "serif"],
         hero: ["Anton", "Impact", "sans-serif"],
         heading: ["Teko", "Arial Narrow", "sans-serif"],
+        impact: ["Oswald", "Arial Narrow", "sans-serif"],
       },
       colors: {
         border: "hsl(var(--border))",
