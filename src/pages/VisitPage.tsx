@@ -188,8 +188,7 @@ const VisitPage = () => {
                 timesAnimation.isVisible ? "opacity-100 animate-scale-in animation-delay-400" : "opacity-0"
               }`}>
                 <h3 className="font-display text-xl font-semibold text-foreground">Wednesday</h3>
-                <p className="text-primary font-medium text-lg mt-1">Prayer Meeting: 6:30 PM</p>
-                <p className="text-primary font-medium text-lg">Bible Study: 7:00 PM</p>
+                <p className="text-primary font-medium text-lg mt-1">Bible Study: 7:00 PM</p>
               </div>
             </div>
           </div>
