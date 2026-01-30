@@ -1,5 +1,16 @@
 import Layout from "@/components/layout/Layout";
 import { useEffect, useRef, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import { User } from "lucide-react";
+
+interface StaffMember {
+  id: string;
+  name: string;
+  title: string | null;
+  category: string;
+  image_url: string | null;
+  display_order: number;
+}
 
 const staffSections = [
   {
@@ -58,10 +69,12 @@ const useScrollAnimation = (threshold = 0.2) => {
 
 const StaffSection = ({ 
   section, 
-  index 
+  index,
+  members,
 }: { 
   section: typeof staffSections[0]; 
   index: number;
+  members: StaffMember[];
 }) => {
   const animation = useScrollAnimation();
   const isEven = index % 2 === 0;
@@ -73,53 +86,56 @@ const StaffSection = ({
     >
       <div className="container mx-auto px-4">
         <div 
-          className={`max-w-5xl mx-auto ${
+          className={`max-w-6xl mx-auto ${
             animation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"
           }`}
         >
-          <div className={`grid md:grid-cols-2 gap-8 items-center ${
-            !isEven ? "md:flex-row-reverse" : ""
-          }`}>
-            {/* Content */}
-            <div className={`${!isEven ? "md:order-2" : ""}`}>
-              <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
-                {section.name}
-              </h2>
-              <div className="w-16 h-1 bg-primary mb-4" />
-              <p className="text-muted-foreground leading-relaxed">
-                {section.description}
+          {/* Section Header */}
+          <div className="text-center mb-8">
+            <h2 className="font-display text-2xl md:text-3xl font-bold text-foreground mb-4">
+              {section.name}
+            </h2>
+            <div className="w-16 h-1 bg-primary mx-auto mb-4" />
+            <p className="text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+              {section.description}
+            </p>
+          </div>
+
+          {/* Staff Members Grid */}
+          {members.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-8">
+              {members.map((member) => (
+                <div key={member.id} className="text-center">
+                  <div className="aspect-[3/4] bg-muted rounded-lg overflow-hidden mb-3 border border-border">
+                    {member.image_url ? (
+                      <img
+                        src={member.image_url}
+                        alt={member.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-primary/5">
+                        <User className="h-12 w-12 text-muted-foreground/40" />
+                      </div>
+                    )}
+                  </div>
+                  <h3 className="font-semibold text-foreground text-sm">{member.name}</h3>
+                  {member.title && (
+                    <p className="text-muted-foreground text-xs">{member.title}</p>
+                  )}
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-8">
+              <div className="w-20 h-20 mx-auto mb-4 bg-primary/10 rounded-full flex items-center justify-center">
+                <User className="w-10 h-10 text-primary" />
+              </div>
+              <p className="text-muted-foreground text-sm">
+                Staff members coming soon
               </p>
             </div>
-
-            {/* Photo Placeholder */}
-            <div className={`${!isEven ? "md:order-1" : ""}`}>
-              <div className="aspect-[4/3] bg-muted border-2 border-dashed border-border rounded-lg flex items-center justify-center">
-                <div className="text-center p-6">
-                  <div className="w-16 h-16 mx-auto mb-3 bg-primary/10 rounded-full flex items-center justify-center">
-                    <svg 
-                      className="w-8 h-8 text-primary" 
-                      fill="none" 
-                      stroke="currentColor" 
-                      viewBox="0 0 24 24"
-                    >
-                      <path 
-                        strokeLinecap="round" 
-                        strokeLinejoin="round" 
-                        strokeWidth={1.5} 
-                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" 
-                      />
-                    </svg>
-                  </div>
-                  <p className="text-sm text-muted-foreground font-medium">
-                    {section.name} Photo
-                  </p>
-                  <p className="text-xs text-muted-foreground/70 mt-1">
-                    Group photo placeholder
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </section>
@@ -127,6 +143,34 @@ const StaffSection = ({
 };
 
 const StaffPage = () => {
+  const [staffMembers, setStaffMembers] = useState<StaffMember[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    fetchStaffMembers();
+  }, []);
+
+  const fetchStaffMembers = async () => {
+    try {
+      const { data, error } = await supabase
+        .from("staff_members")
+        .select("*")
+        .eq("is_active", true)
+        .order("display_order");
+
+      if (error) throw error;
+      setStaffMembers(data || []);
+    } catch (error) {
+      console.error("Error fetching staff members:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const getMembersByCategory = (category: string) => {
+    return staffMembers.filter(m => m.category === category);
+  };
+
   return (
     <Layout>
       {/* Hero Section */}
@@ -143,7 +187,12 @@ const StaffPage = () => {
 
       {/* Staff Sections */}
       {staffSections.map((section, index) => (
-        <StaffSection key={section.name} section={section} index={index} />
+        <StaffSection 
+          key={section.name} 
+          section={section} 
+          index={index} 
+          members={getMembersByCategory(section.name)}
+        />
       ))}
     </Layout>
   );

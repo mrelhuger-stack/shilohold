@@ -11,6 +11,7 @@ const navLinks = [
   { name: "Visit Us", path: "/visit" },
   { name: "Announcements", path: "/announcements" },
   { name: "Sermons", path: "/sermons" },
+  { name: "Giving", path: "/giving" },
   { name: "Contact", path: "/contact" },
 ];
 

@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAuth } from "@/contexts/AuthContext";
 import CarouselManager from "@/components/admin/CarouselManager";
 import AnnouncementManager from "@/components/admin/AnnouncementManager";
+import StaffManager from "@/components/admin/StaffManager";
 import { Button } from "@/components/ui/button";
 import { LogOut, Shield } from "lucide-react";
 
@@ -61,33 +62,38 @@ const AdminPage = () => {
                 Admin Dashboard
               </h1>
               <p className="text-muted-foreground mt-1">
-                Manage carousel photos and announcements
-              </p>
-            </div>
-            <Button variant="outline" onClick={() => signOut()}>
-              <LogOut className="h-4 w-4 mr-2" />
-              Sign Out
-            </Button>
+              Manage carousel photos, announcements, and staff members
+            </p>
           </div>
-
-          <Tabs defaultValue="carousel" className="space-y-6">
-            <TabsList className="grid w-full max-w-md grid-cols-2">
-              <TabsTrigger value="carousel">Carousel Photos</TabsTrigger>
-              <TabsTrigger value="announcements">Announcements</TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="carousel">
-              <CarouselManager />
-            </TabsContent>
-
-            <TabsContent value="announcements">
-              <AnnouncementManager />
-            </TabsContent>
-          </Tabs>
+          <Button variant="outline" onClick={() => signOut()}>
+            <LogOut className="h-4 w-4 mr-2" />
+            Sign Out
+          </Button>
         </div>
-      </section>
-    </Layout>
-  );
+
+        <Tabs defaultValue="carousel" className="space-y-6">
+          <TabsList className="grid w-full max-w-lg grid-cols-3">
+            <TabsTrigger value="carousel">Carousel</TabsTrigger>
+            <TabsTrigger value="announcements">Announcements</TabsTrigger>
+            <TabsTrigger value="staff">Staff</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="carousel">
+            <CarouselManager />
+          </TabsContent>
+
+          <TabsContent value="announcements">
+            <AnnouncementManager />
+          </TabsContent>
+
+          <TabsContent value="staff">
+            <StaffManager />
+          </TabsContent>
+        </Tabs>
+      </div>
+    </section>
+  </Layout>
+);
 };
 
 export default AdminPage;
