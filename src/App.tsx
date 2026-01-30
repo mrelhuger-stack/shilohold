@@ -10,6 +10,7 @@ import StaffPage from "./pages/StaffPage";
 import VisitPage from "./pages/VisitPage";
 import AnnouncementsPage from "./pages/AnnouncementsPage";
 import SermonsPage from "./pages/SermonsPage";
+import GivingPage from "./pages/GivingPage";
 import ContactPage from "./pages/ContactPage";
 import AuthPage from "./pages/AuthPage";
 import AdminPage from "./pages/AdminPage";
@@ -31,6 +32,7 @@ const App = () => (
             <Route path="/visit" element={<VisitPage />} />
             <Route path="/announcements" element={<AnnouncementsPage />} />
             <Route path="/sermons" element={<SermonsPage />} />
+            <Route path="/giving" element={<GivingPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/auth" element={<AuthPage />} />
             <Route path="/admin" element={<AdminPage />} />
