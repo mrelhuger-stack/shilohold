@@ -188,8 +188,18 @@ const VisitPage = () => {
                 timesAnimation.isVisible ? "opacity-100 animate-scale-in animation-delay-400" : "opacity-0"
               }`}>
                 <h3 className="font-display text-xl font-semibold text-foreground">Wednesday</h3>
-                <p className="text-primary font-medium text-lg mt-1">Prayer Meeting: 6:30 PM</p>
-                <p className="text-primary font-medium text-lg">Bible Study: 7:00 PM</p>
+                <p className="text-primary font-medium text-lg mt-1">Bible Study: 7:00 PM</p>
+              </div>
+              <div className={`bg-muted p-6 rounded-xl hover-lift ${
+                timesAnimation.isVisible ? "opacity-100 animate-scale-in animation-delay-600" : "opacity-0"
+              }`}>
+                <h3 className="font-display text-xl font-semibold text-foreground">Friday</h3>
+                <p className="text-primary font-medium text-lg mt-1">Prayer Service: 7:00 - 8:00 PM</p>
+                <p className="text-muted-foreground text-sm mt-2">
+                  Via Conference Line<br />
+                  Phone: 605-313-5980<br />
+                  Code: 866436#
+                </p>
               </div>
             </div>
           </div>

@@ -23,9 +23,9 @@ const services = [
   },
   {
     icon: Calendar,
-    title: "Prayer Meeting",
-    time: "Wednesday 6:30 PM",
-    description: "Come together in prayer and support one another in faith.",
+    title: "Prayer Service",
+    time: "Friday 7:00 - 8:00 PM",
+    description: "Join us via Conference Line. Call 605-313-5980, Code: 866436#",
   },
 ];
 

@@ -70,23 +70,27 @@ const AnnouncementManager = () => {
     fetchAnnouncements();
   }, []);
 
-  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleMediaUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    if (!file.type.startsWith("image/")) {
+    const isImage = file.type.startsWith("image/");
+    const isVideo = file.type.startsWith("video/");
+
+    if (!isImage && !isVideo) {
       toast({
         title: "Invalid file",
-        description: "Please upload an image file",
+        description: "Please upload an image or video file",
         variant: "destructive",
       });
       return;
     }
 
-    if (file.size > 5 * 1024 * 1024) {
+    const maxSize = isVideo ? 50 * 1024 * 1024 : 5 * 1024 * 1024; // 50MB for video, 5MB for image
+    if (file.size > maxSize) {
       toast({
         title: "File too large",
-        description: "Please upload an image under 5MB",
+        description: isVideo ? "Please upload a video under 50MB" : "Please upload an image under 5MB",
         variant: "destructive",
       });
       return;
@@ -96,7 +100,8 @@ const AnnouncementManager = () => {
 
     try {
       const fileExt = file.name.split(".").pop();
-      const fileName = `announcement-${Date.now()}.${fileExt}`;
+      const mediaType = file.type.startsWith("video/") ? "video" : "image";
+      const fileName = `announcement-${mediaType}-${Date.now()}.${fileExt}`;
       const filePath = `announcements/${fileName}`;
 
       const { error: uploadError } = await supabase.storage
@@ -356,16 +361,24 @@ const AnnouncementManager = () => {
                     />
                   </div>
 
-                  {/* Image Upload */}
+                  {/* Media Upload (Image or Video) */}
                   <div className="space-y-2">
-                    <Label>Announcement Graphic (Optional)</Label>
+                    <Label>Announcement Media (Optional - Image or Video)</Label>
                     {formData.image_url ? (
                       <div className="relative inline-block">
-                        <img
-                          src={formData.image_url}
-                          alt="Preview"
-                          className="h-32 w-auto rounded border"
-                        />
+                        {formData.image_url.includes("-video-") || formData.image_url.match(/\.(mp4|webm|mov|avi)$/i) ? (
+                          <video
+                            src={formData.image_url}
+                            className="h-32 w-auto rounded border"
+                            controls
+                          />
+                        ) : (
+                          <img
+                            src={formData.image_url}
+                            alt="Preview"
+                            className="h-32 w-auto rounded border"
+                          />
+                        )}
                         <Button
                           type="button"
                           variant="destructive"
@@ -382,8 +395,8 @@ const AnnouncementManager = () => {
                       <div className="flex items-center gap-4">
                         <Input
                           type="file"
-                          accept="image/*"
-                          onChange={handleImageUpload}
+                          accept="image/*,video/*"
+                          onChange={handleMediaUpload}
                           disabled={isUploading}
                         />
                         {isUploading && (
