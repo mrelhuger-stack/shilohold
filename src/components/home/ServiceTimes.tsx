@@ -1,4 +1,4 @@
-import { Clock, BookOpen, Users } from "lucide-react";
+import { Clock, Calendar, BookOpen, Users } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useRef, useState } from "react";
 
@@ -20,6 +20,12 @@ const services = [
     title: "Sunday School",
     time: "9:00 AM",
     description: "Classes for all ages to learn and discuss biblical principles.",
+  },
+  {
+    icon: Calendar,
+    title: "Prayer Meeting",
+    time: "Wednesday 6:30 PM",
+    description: "Come together in prayer and support one another in faith.",
   },
 ];
 
@@ -58,7 +64,7 @@ const ServiceTimes = () => {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {services.map((service, index) => (
             <Card 
               key={index} 
