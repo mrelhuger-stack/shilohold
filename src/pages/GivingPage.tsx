@@ -1,6 +1,6 @@
 import Layout from "@/components/layout/Layout";
 import { Card, CardContent } from "@/components/ui/card";
-import { MessageSquare, Globe, Users } from "lucide-react";
+import { MessageSquare, Globe, Users, Mail } from "lucide-react";
 import { useScrollAnimation } from "@/hooks/use-scroll-animation";
 import { QRCodeSVG } from "qrcode.react";
 
@@ -24,6 +24,13 @@ const givingMethods = [
     title: "In Person",
     description: "Give during our worship services. Offering plates are passed during the service, or you can use the giving boxes at the entrance.",
     details: "Sunday Worship: 10:00 AM",
+  },
+  {
+    icon: Mail,
+    title: "Mail In",
+    description: "Send your offering by mail to our church address.",
+    details: "1855 Garrisonville Road, Stafford, VA 22556",
+    highlight: true,
   },
 ];
 
@@ -80,7 +87,7 @@ const GivingPage = () => {
             <div className="section-divider" />
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {givingMethods.map((method, index) => (
               <Card 
                 key={index}
