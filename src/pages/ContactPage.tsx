@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Layout from "@/components/layout/Layout";
-import { MapPin, Phone, Mail, Clock, Send, Facebook, Youtube } from "lucide-react";
+import { MapPin, Phone, Mail, Clock, Send, Facebook, Youtube, Heart } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,9 +16,17 @@ const ContactPage = () => {
     email: "",
     message: "",
   });
+  const [prayerData, setPrayerData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    request: "",
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isPrayerSubmitting, setIsPrayerSubmitting] = useState(false);
   
   const contactAnimation = useScrollAnimation();
+  const prayerAnimation = useScrollAnimation();
   const mapAnimation = useScrollAnimation();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -37,8 +45,31 @@ const ContactPage = () => {
     setIsSubmitting(false);
   };
 
+  const handlePrayerSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsPrayerSubmitting(true);
+    
+    // Simulate form submission
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+    
+    toast({
+      title: "Prayer Request Submitted",
+      description: "Thank you for sharing. Our prayer team will lift you up in prayer.",
+    });
+    
+    setPrayerData({ name: "", email: "", phone: "", request: "" });
+    setIsPrayerSubmitting(false);
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handlePrayerChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setPrayerData((prev) => ({
       ...prev,
       [e.target.name]: e.target.value,
     }));
@@ -228,10 +259,113 @@ const ContactPage = () => {
         </div>
       </section>
 
+      {/* Prayer Request Section */}
+      <section 
+        ref={prayerAnimation.ref as React.RefObject<HTMLElement>} 
+        className="py-16 md:py-24 bg-muted overflow-hidden"
+      >
+        <div className="container mx-auto px-4">
+          <div className={`text-center mb-12 ${prayerAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"}`}>
+            <p className="text-primary font-medium mb-2">We're Here for You</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Submit a Prayer Request
+            </h2>
+            <div className="section-divider" />
+            <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">
+              Share your prayer needs with us. Our prayer team is dedicated to lifting you up in prayer.
+            </p>
+          </div>
+
+          <div className={`max-w-2xl mx-auto ${prayerAnimation.isVisible ? "opacity-100 animate-scale-in" : "opacity-0"}`}>
+            <Card className="border-border hover-lift">
+              <CardContent className="p-6 md:p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center icon-bounce">
+                    <Heart className="h-6 w-6 text-primary" />
+                  </div>
+                  <h3 className="font-display text-xl font-bold text-foreground">
+                    Prayer Request Form
+                  </h3>
+                </div>
+                <form onSubmit={handlePrayerSubmit} className="space-y-6">
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="prayer-name">Name</Label>
+                      <Input
+                        id="prayer-name"
+                        name="name"
+                        type="text"
+                        placeholder="Your name"
+                        value={prayerData.name}
+                        onChange={handlePrayerChange}
+                        required
+                        className="border-border transition-all duration-300 focus:scale-[1.02]"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="prayer-email">Email</Label>
+                      <Input
+                        id="prayer-email"
+                        name="email"
+                        type="email"
+                        placeholder="your@email.com"
+                        value={prayerData.email}
+                        onChange={handlePrayerChange}
+                        required
+                        className="border-border transition-all duration-300 focus:scale-[1.02]"
+                      />
+                    </div>
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="prayer-phone">Phone Number</Label>
+                    <Input
+                      id="prayer-phone"
+                      name="phone"
+                      type="tel"
+                      placeholder="(555) 123-4567"
+                      value={prayerData.phone}
+                      onChange={handlePrayerChange}
+                      className="border-border transition-all duration-300 focus:scale-[1.02]"
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="prayer-request">Prayer Request</Label>
+                    <Textarea
+                      id="prayer-request"
+                      name="request"
+                      placeholder="Share your prayer request here..."
+                      rows={5}
+                      value={prayerData.request}
+                      onChange={handlePrayerChange}
+                      required
+                      className="border-border resize-none transition-all duration-300 focus:scale-[1.02]"
+                    />
+                  </div>
+                  <Button 
+                    type="submit" 
+                    className="w-full transition-all duration-300 hover:scale-105 hover:shadow-lg" 
+                    disabled={isPrayerSubmitting}
+                  >
+                    {isPrayerSubmitting ? (
+                      "Submitting..."
+                    ) : (
+                      <>
+                        Submit Prayer Request
+                        <Heart className="ml-2 h-4 w-4" />
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </section>
+
       {/* Map */}
       <section 
         ref={mapAnimation.ref as React.RefObject<HTMLElement>} 
-        className="py-16 md:py-24 bg-muted overflow-hidden"
+        className="py-16 md:py-24 bg-background overflow-hidden"
       >
         <div className="container mx-auto px-4">
           <div className={`text-center mb-12 ${mapAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"}`}>
