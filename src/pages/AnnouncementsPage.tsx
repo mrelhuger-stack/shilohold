@@ -85,8 +85,8 @@ const AnnouncementsPage = () => {
           >
             <div className="container mx-auto px-4">
               <div
-                className={`text-center mb-12 ${
-                  recurringAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"
+                className={`text-center mb-12 transition-opacity duration-500 ${
+                  recurringAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-100"
                 }`}
               >
                 <p className="text-primary font-medium mb-2">Weekly Gatherings</p>
@@ -105,10 +105,10 @@ const AnnouncementsPage = () => {
                   recurringAnnouncements.map((announcement, index) => (
                     <Card
                       key={announcement.id}
-                      className={`card-hover hover-lift bg-card border-border ${
+                      className={`card-hover hover-lift bg-card border-border transition-opacity duration-500 ${
                         recurringAnimation.isVisible
                           ? `opacity-100 animate-fade-in-up animation-delay-${(index + 1) * 100}`
-                          : "opacity-0"
+                          : "opacity-100"
                       }`}
                     >
                       <CardContent className="p-0">
@@ -168,8 +168,8 @@ const AnnouncementsPage = () => {
           >
             <div className="container mx-auto px-4">
               <div
-                className={`text-center mb-12 ${
-                  upcomingAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-0"
+                className={`text-center mb-12 transition-opacity duration-500 ${
+                  upcomingAnimation.isVisible ? "opacity-100 animate-fade-in-up" : "opacity-100"
                 }`}
               >
                 <p className="text-primary font-medium mb-2">Mark Your Calendar</p>
@@ -188,10 +188,10 @@ const AnnouncementsPage = () => {
                   upcomingAnnouncements.map((announcement, index) => (
                     <Card
                       key={announcement.id}
-                      className={`card-hover hover-lift bg-card border-border overflow-hidden ${
+                      className={`card-hover hover-lift bg-card border-border overflow-hidden transition-opacity duration-500 ${
                         upcomingAnimation.isVisible
                           ? `opacity-100 animate-slide-in-left animation-delay-${(index + 1) * 200}`
-                          : "opacity-0"
+                          : "opacity-100"
                       }`}
                     >
                       <CardContent className="p-0">
@@ -251,8 +251,8 @@ const AnnouncementsPage = () => {
               </div>
 
               <div
-                className={`text-center mt-12 ${
-                  upcomingAnimation.isVisible ? "opacity-100 animate-fade-in-up animation-delay-600" : "opacity-0"
+                className={`text-center mt-12 transition-opacity duration-500 ${
+                  upcomingAnimation.isVisible ? "opacity-100 animate-fade-in-up animation-delay-600" : "opacity-100"
                 }`}
               >
                 <Button asChild variant="outline" className="transition-all duration-300 hover:scale-105">
