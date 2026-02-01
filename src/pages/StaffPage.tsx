@@ -178,7 +178,7 @@ const StaffPage = () => {
   return (
     <Layout>
       {/* Hero Section */}
-      <section className="relative py-20 md:py-28 bg-secondary overflow-hidden">
+      <section className="relative py-10 md:py-14 bg-secondary overflow-hidden">
         <div className="container mx-auto px-4 text-center">
           <h1 className="font-display text-4xl md:text-5xl font-bold text-secondary-foreground mb-4 opacity-0 animate-fade-in-down">
             Staff & Auxiliaries
