@@ -96,7 +96,7 @@ const AnnouncementsPage = () => {
                 <div className="section-divider" />
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
                 {recurringAnnouncements.length === 0 ? (
                   <p className="text-center text-muted-foreground col-span-full py-8">
                     No recurring announcements at this time.
@@ -105,7 +105,7 @@ const AnnouncementsPage = () => {
                   recurringAnnouncements.map((announcement, index) => (
                     <Card
                       key={announcement.id}
-                      className={`card-hover hover-lift bg-card border-border transition-opacity duration-500 ${
+                      className={`card-hover hover-lift bg-card border-border transition-opacity duration-500 w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] ${
                         recurringAnimation.isVisible
                           ? `opacity-100 animate-fade-in-up animation-delay-${(index + 1) * 100}`
                           : "opacity-100"
