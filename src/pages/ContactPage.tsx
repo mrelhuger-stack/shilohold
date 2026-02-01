@@ -131,7 +131,7 @@ const ContactPage = () => {
                     </div>
                     <div>
                       <h3 className="font-semibold text-foreground mb-1">Phone</h3>
-                      <p className="text-muted-foreground">(540) 659-4915</p>
+                      <p className="text-muted-foreground">540.752.0673</p>
                     </div>
                   </CardContent>
                 </Card>
