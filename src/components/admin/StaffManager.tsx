@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import { Plus, Trash2, Upload, GripVertical, User } from "lucide-react";
+import { Plus, Trash2, Upload, User, ChevronUp, ChevronDown } from "lucide-react";
 
 interface StaffMember {
   id: string;
@@ -21,6 +21,7 @@ interface StaffMember {
 
 const STAFF_CATEGORIES = [
   "Ministerial Staff",
+  "Administration",
   "Trustees",
   "Deacons",
   "Ushers",
@@ -219,6 +220,50 @@ const StaffManager = () => {
     }
   };
 
+  const handleMoveUp = async (member: StaffMember, categoryMembers: StaffMember[]) => {
+    const currentIndex = categoryMembers.findIndex(m => m.id === member.id);
+    if (currentIndex <= 0) return;
+
+    const prevMember = categoryMembers[currentIndex - 1];
+    
+    try {
+      await Promise.all([
+        supabase.from("staff_members").update({ display_order: prevMember.display_order }).eq("id", member.id),
+        supabase.from("staff_members").update({ display_order: member.display_order }).eq("id", prevMember.id),
+      ]);
+      fetchStaffMembers();
+    } catch (error) {
+      console.error("Error reordering:", error);
+      toast({
+        title: "Error",
+        description: "Failed to reorder staff member",
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleMoveDown = async (member: StaffMember, categoryMembers: StaffMember[]) => {
+    const currentIndex = categoryMembers.findIndex(m => m.id === member.id);
+    if (currentIndex >= categoryMembers.length - 1) return;
+
+    const nextMember = categoryMembers[currentIndex + 1];
+    
+    try {
+      await Promise.all([
+        supabase.from("staff_members").update({ display_order: nextMember.display_order }).eq("id", member.id),
+        supabase.from("staff_members").update({ display_order: member.display_order }).eq("id", nextMember.id),
+      ]);
+      fetchStaffMembers();
+    } catch (error) {
+      console.error("Error reordering:", error);
+      toast({
+        title: "Error",
+        description: "Failed to reorder staff member",
+        variant: "destructive",
+      });
+    }
+  };
+
   const filteredMembers = selectedCategory === "all" 
     ? staffMembers 
     : staffMembers.filter(m => m.category === selectedCategory);
@@ -322,7 +367,7 @@ const StaffManager = () => {
                   <p className="text-muted-foreground text-sm">No members in this category</p>
                 ) : (
                   <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
-                    {members.map((member) => (
+                    {members.map((member, memberIndex) => (
                       <div 
                         key={member.id} 
                         className="bg-muted rounded-lg p-3 relative group"
@@ -376,6 +421,28 @@ const StaffManager = () => {
                           className="text-xs text-center h-7 text-muted-foreground"
                           placeholder="Title (optional)"
                         />
+
+                        {/* Reorder Buttons */}
+                        <div className="flex justify-center gap-1 mt-2">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-7 w-7"
+                            onClick={() => handleMoveUp(member, members)}
+                            disabled={memberIndex === 0}
+                          >
+                            <ChevronUp className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            className="h-7 w-7"
+                            onClick={() => handleMoveDown(member, members)}
+                            disabled={memberIndex === members.length - 1}
+                          >
+                            <ChevronDown className="h-4 w-4" />
+                          </Button>
+                        </div>
 
                         {/* Delete Button */}
                         <Button

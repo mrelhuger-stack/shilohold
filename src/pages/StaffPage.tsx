@@ -18,6 +18,10 @@ const staffSections = [
     description: "Our ministerial staff provides spiritual leadership, preaching, teaching, and pastoral care to our congregation. They guide our church in worship, discipleship, and ministry.",
   },
   {
+    name: "Administration",
+    description: "Our administrative team manages the day-to-day operations of the church, ensuring smooth coordination of ministries, communications, and organizational functions.",
+  },
+  {
     name: "Trustees",
     description: "The Board of Trustees oversees the financial affairs and property management of the church. They ensure responsible stewardship of our facilities and resources.",
   },
