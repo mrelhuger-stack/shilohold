@@ -107,9 +107,9 @@ const StaffSection = ({
 
           {/* Staff Members Grid */}
           {members.length > 0 ? (
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 mt-8">
+            <div className="flex flex-wrap justify-center gap-6 mt-8">
               {members.map((member) => (
-                <div key={member.id} className="text-center">
+                <div key={member.id} className="text-center w-[calc(50%-12px)] sm:w-[calc(33.333%-16px)] md:w-[calc(25%-18px)] lg:w-[calc(20%-19.2px)]">
                   <div className="aspect-[3/4] bg-muted rounded-lg overflow-hidden mb-3 border border-border">
                     {member.image_url ? (
                       <img
