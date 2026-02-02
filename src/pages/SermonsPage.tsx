@@ -86,20 +86,18 @@ const SermonsPage = () => {
       {/* Featured Sermon */}
       <section className="py-16 md:py-24 bg-background">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-between mb-12">
-            <div className="text-center flex-1">
-              <p className="text-primary font-medium mb-2">Latest Message</p>
-              <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-                Featured Sermon
-              </h2>
-              <div className="section-divider" />
-            </div>
+          <div className="text-center mb-12">
+            <p className="text-primary font-medium mb-2">Latest Message</p>
+            <h2 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
+              Featured Sermon
+            </h2>
+            <div className="section-divider" />
             <Button
               variant="outline"
               size="sm"
               onClick={fetchVideos}
               disabled={isLoading}
-              className="ml-4"
+              className="mt-4"
             >
               <RefreshCw className={`h-4 w-4 mr-2 ${isLoading ? "animate-spin" : ""}`} />
               Refresh
