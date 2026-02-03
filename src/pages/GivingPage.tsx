@@ -16,7 +16,7 @@ const givingMethods = [
     icon: Globe,
     title: "Online Giving",
     description: "Give securely online through our giving portal. Scan the QR code or click the link below.",
-    link: "https://ac.st/JPlObq",
+    link: "https://onrealm.org/Garrisonville/-/form/give/Garrisonvilletext",
     showQR: true,
   },
   {
