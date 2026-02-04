@@ -125,12 +125,13 @@
     @apply font-display;
   }
 
-  /* Improve image rendering quality in Chrome */
+  /* Improve image rendering quality in Chrome/Firefox */
   img {
-    image-rendering: -webkit-optimize-contrast;
-    image-rendering: crisp-edges;
+    image-rendering: auto;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
+    transform: translateZ(0);
+    will-change: auto;
   }
 }
 
