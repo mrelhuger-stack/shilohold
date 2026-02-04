@@ -117,8 +117,7 @@ const StaffSection = ({
                         alt={member.name}
                         className="w-full h-full object-cover"
                         style={{ 
-                          imageRendering: 'auto',
-                          WebkitFontSmoothing: 'antialiased'
+                          filter: 'contrast(1.01) brightness(1.01)',
                         }}
                         loading="lazy"
                         decoding="async"
