@@ -125,11 +125,9 @@
     @apply font-display;
   }
 
-  /* Improve image rendering quality in Chrome/Firefox */
+  /* Improve image rendering quality across browsers */
   img {
-    image-rendering: -webkit-optimize-contrast;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+    image-rendering: auto;
   }
 }
 
