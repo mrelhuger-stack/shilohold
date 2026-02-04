@@ -124,6 +124,14 @@
   h1, h2, h3 {
     @apply font-display;
   }
+
+  /* Improve image rendering quality in Chrome */
+  img {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
 }
 
 @layer components {
