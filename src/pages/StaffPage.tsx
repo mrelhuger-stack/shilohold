@@ -116,6 +116,12 @@ const StaffSection = ({
                         src={member.image_url}
                         alt={member.name}
                         className="w-full h-full object-cover"
+                        style={{ 
+                          imageRendering: 'auto',
+                          WebkitFontSmoothing: 'antialiased'
+                        }}
+                        loading="lazy"
+                        decoding="async"
                       />
                     ) : (
                       <div className="w-full h-full flex items-center justify-center bg-primary/5">
