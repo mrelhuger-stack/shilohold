@@ -112,13 +112,24 @@ const AnnouncementsPage = () => {
                       }`}
                     >
                       <CardContent className="p-0">
-                        {/* Image Placeholder */}
+                        {/* Image/Video Placeholder */}
                         {announcement.image_url ? (
-                          <img
-                            src={announcement.image_url}
-                            alt={announcement.title}
-                            className="w-full h-48 object-cover rounded-t-lg"
-                          />
+                          announcement.image_url.endsWith('.mp4') ? (
+                            <video
+                              src={announcement.image_url}
+                              className="w-full h-48 object-cover rounded-t-lg"
+                              muted
+                              loop
+                              autoPlay
+                              playsInline
+                            />
+                          ) : (
+                            <img
+                              src={announcement.image_url}
+                              alt={announcement.title}
+                              className="w-full h-48 object-cover rounded-t-lg"
+                            />
+                          )
                         ) : (
                           <div className="w-full h-48 bg-muted rounded-t-lg flex items-center justify-center">
                             <ImageIcon className="h-12 w-12 text-muted-foreground" />
@@ -196,13 +207,24 @@ const AnnouncementsPage = () => {
                     >
                       <CardContent className="p-0">
                         <div className="flex flex-col md:flex-row">
-                          {/* Image or Date Section */}
+                          {/* Image/Video or Date Section */}
                           {announcement.image_url ? (
-                            <img
-                              src={announcement.image_url}
-                              alt={announcement.title}
-                              className="w-full md:w-64 h-48 md:h-auto object-cover"
-                            />
+                            announcement.image_url.endsWith('.mp4') ? (
+                              <video
+                                src={announcement.image_url}
+                                className="w-full md:w-64 h-48 md:h-auto object-cover"
+                                muted
+                                loop
+                                autoPlay
+                                playsInline
+                              />
+                            ) : (
+                              <img
+                                src={announcement.image_url}
+                                alt={announcement.title}
+                                className="w-full md:w-64 h-48 md:h-auto object-cover"
+                              />
+                            )
                           ) : (
                             <div className="bg-primary p-6 md:p-8 flex flex-col items-center justify-center md:w-48 shrink-0">
                               <span className="text-primary-foreground text-sm font-medium">
