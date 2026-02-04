@@ -129,10 +129,10 @@ const HeroCarousel = () => {
         <div className="container mx-auto px-4 pb-10 md:pb-16">
           <div className="max-w-4xl text-white">
             {/* Main headline with dramatic styling */}
-            <h1 className="font-hero text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-none mb-4 text-shadow-hero text-stroke opacity-0 animate-fade-in-up">
-              <span className="block text-white">Shiloh</span>
-              <span className="block text-gradient-gold drop-shadow-2xl" style={{ WebkitTextStroke: '0' }}>Old Site Baptist</span>
-              <span className="block text-white">Church</span>
+            <h1 className="font-hero text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-none mb-4 text-shadow-hero opacity-0 animate-fade-in-up">
+              <span className="block text-white drop-shadow-lg">Shiloh</span>
+              <span className="block text-primary drop-shadow-2xl">Old Site Baptist</span>
+              <span className="block text-white drop-shadow-lg">Church</span>
             </h1>
             {/* Tagline with gold accent */}
             <p className="font-heading text-xl sm:text-2xl md:text-3xl uppercase tracking-[0.15em] text-primary mb-2 text-glow-gold opacity-0 animate-fade-in-up animation-delay-200">
