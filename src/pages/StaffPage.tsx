@@ -116,12 +116,6 @@ const StaffSection = ({
                         src={member.image_url}
                         alt={member.name}
                         className="w-full h-full object-cover"
-                        style={{
-                          imageRendering: "auto",
-                          WebkitBackfaceVisibility: "hidden",
-                          backfaceVisibility: "hidden",
-                          transform: "translateZ(0)",
-                        }}
                         loading="lazy"
                         decoding="async"
                       />
