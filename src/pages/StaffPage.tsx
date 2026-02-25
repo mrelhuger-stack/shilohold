@@ -116,8 +116,11 @@ const StaffSection = ({
                         src={member.image_url}
                         alt={member.name}
                         className="w-full h-full object-cover"
-                        style={{ 
-                          filter: 'contrast(1.01) brightness(1.01)',
+                        style={{
+                          imageRendering: "auto",
+                          WebkitBackfaceVisibility: "hidden",
+                          backfaceVisibility: "hidden",
+                          transform: "translateZ(0)",
                         }}
                         loading="lazy"
                         decoding="async"
