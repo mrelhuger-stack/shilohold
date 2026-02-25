@@ -90,27 +90,27 @@ export default {
         },
         "fade-in": {
           from: { opacity: "0", transform: "translateY(10px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+          to: { opacity: "1", transform: "none" },
         },
         "fade-in-up": {
           from: { opacity: "0", transform: "translateY(30px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+          to: { opacity: "1", transform: "none" },
         },
         "fade-in-down": {
           from: { opacity: "0", transform: "translateY(-20px)" },
-          to: { opacity: "1", transform: "translateY(0)" },
+          to: { opacity: "1", transform: "none" },
         },
         "slide-in-left": {
           from: { opacity: "0", transform: "translateX(-40px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
+          to: { opacity: "1", transform: "none" },
         },
         "slide-in-right": {
           from: { opacity: "0", transform: "translateX(40px)" },
-          to: { opacity: "1", transform: "translateX(0)" },
+          to: { opacity: "1", transform: "none" },
         },
         "scale-in": {
           from: { opacity: "0", transform: "scale(0.9)" },
-          to: { opacity: "1", transform: "scale(1)" },
+          to: { opacity: "1", transform: "none" },
         },
         "float": {
           "0%, 100%": { transform: "translateY(0)" },
