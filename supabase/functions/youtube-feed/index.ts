@@ -32,10 +32,19 @@ serve(async (req) => {
 
     // Fetch the YouTube RSS feed
     const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-    const response = await fetch(feedUrl);
+    const response = await fetch(feedUrl, {
+      headers: {
+        "User-Agent": "Mozilla/5.0 (compatible; ChurchWebsite/1.0)",
+      },
+    });
     
     if (!response.ok) {
-      throw new Error(`Failed to fetch YouTube feed: ${response.status}`);
+      console.error(`YouTube feed returned status ${response.status} for channel ${channelId}`);
+      // Return empty results instead of throwing, so the page still loads
+      return new Response(
+        JSON.stringify({ videos: [], fetchedAt: new Date().toISOString(), error: `YouTube feed unavailable (status ${response.status}). The channel ID may be incorrect.` }),
+        { headers: { ...corsHeaders, "Content-Type": "application/json" } }
+      );
     }
 
     const xmlText = await response.text();
