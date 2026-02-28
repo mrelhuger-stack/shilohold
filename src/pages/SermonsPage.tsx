@@ -16,7 +16,7 @@ interface YouTubeVideo {
 }
 
 // Church's YouTube channel ID
-const YOUTUBE_CHANNEL_ID = "UCqVzwMwYk5fV6_7R3B892wg";
+const YOUTUBE_CHANNEL_ID = "UCFm4TGF2q2bAMV1bEFeGs5w";
 
 const SermonsPage = () => {
   const [videos, setVideos] = useState<YouTubeVideo[]>([]);
@@ -201,7 +201,7 @@ const SermonsPage = () => {
             <div className="text-center mt-12">
               <Button asChild variant="outline">
                 <a
-                  href="https://www.youtube.com/@shiloholdsitebaptistchurch3089"
+                  href="https://www.youtube.com/channel/UCFm4TGF2q2bAMV1bEFeGs5w"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
