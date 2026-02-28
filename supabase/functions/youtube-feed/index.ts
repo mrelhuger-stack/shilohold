@@ -20,41 +20,44 @@ serve(async (req) => {
   }
 
   try {
-    const { channelId } = await req.json();
+    const { channelId, handle } = await req.json();
 
-    if (!channelId) {
+    if (!channelId && !handle) {
       return new Response(
-        JSON.stringify({ error: "Channel ID is required" }),
+        JSON.stringify({ error: "Channel ID or handle is required" }),
         { status: 400, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
     let videos: YouTubeVideo[] = [];
 
-    // Try RSS feed first
-    const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
-    try {
-      const response = await fetch(feedUrl, {
-        headers: { "User-Agent": "Mozilla/5.0 (compatible; ChurchWebsite/1.0)" },
-      });
-
-      if (response.ok) {
-        const xmlText = await response.text();
-        videos = parseRSSFeed(xmlText);
-      } else {
-        console.log(`RSS feed returned ${response.status}, trying channel page scrape...`);
+    // If we have a channel ID, try RSS feed first
+    if (channelId) {
+      const feedUrl = `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`;
+      try {
+        const response = await fetch(feedUrl, {
+          headers: { "User-Agent": "Mozilla/5.0 (compatible; ChurchWebsite/1.0)" },
+        });
+        if (response.ok) {
+          const xmlText = await response.text();
+          videos = parseRSSFeed(xmlText);
+        } else {
+          console.log(`RSS feed returned ${response.status}, trying page scrape...`);
+        }
+      } catch (e) {
+        console.log("RSS feed failed:", e);
       }
-    } catch (e) {
-      console.log("RSS feed failed, trying channel page scrape...", e);
     }
 
-    // Fallback: scrape the channel page for video IDs
+    // Fallback: scrape the channel/handle page
     if (videos.length === 0) {
-      // Try both /streams and /videos tabs
+      const baseUrl = handle 
+        ? `https://www.youtube.com/@${handle.replace(/^@/, '')}`
+        : `https://www.youtube.com/channel/${channelId}`;
       const tabs = ["/streams", "/videos"];
       for (const tab of tabs) {
         try {
-          const channelUrl = `https://www.youtube.com/channel/${channelId}${tab}`;
+          const channelUrl = `${baseUrl}${tab}`;
           const pageResponse = await fetch(channelUrl, {
             headers: {
               "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",

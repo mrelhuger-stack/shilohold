@@ -15,8 +15,8 @@ interface YouTubeVideo {
   link: string;
 }
 
-// Church's YouTube channel ID
-const YOUTUBE_CHANNEL_ID = "UCFm4TGF2q2bAMV1bEFeGs5w";
+// Church's YouTube handle
+const YOUTUBE_HANDLE = "shiloholdsitebaptistchurch3089";
 
 const SermonsPage = () => {
   const [videos, setVideos] = useState<YouTubeVideo[]>([]);
@@ -29,7 +29,7 @@ const SermonsPage = () => {
     setIsLoading(true);
     try {
       const { data, error } = await supabase.functions.invoke("youtube-feed", {
-        body: { channelId: YOUTUBE_CHANNEL_ID },
+        body: { handle: YOUTUBE_HANDLE },
       });
 
       if (error) throw error;
@@ -201,7 +201,7 @@ const SermonsPage = () => {
             <div className="text-center mt-12">
               <Button asChild variant="outline">
                 <a
-                  href="https://www.youtube.com/channel/UCFm4TGF2q2bAMV1bEFeGs5w"
+                  href="https://www.youtube.com/@shiloholdsitebaptistchurch3089"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
